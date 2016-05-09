@@ -3,6 +3,7 @@ package com.yasam.sunshine;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,5 +36,11 @@ public class MainActivity extends AppCompatActivity {
                 R.id.txtVw_listItenForecast, // ID of the List Item element to populate
                 weekForecast                 // forecasts raw data
         );
+
+        // Get a reference to the ListView, and attach this adapter to it.
+        ListView lv = (ListView) findViewById(R.id.lstVw_forecast);
+
+        if(lv != null)
+            lv.setAdapter(mForecastAdapter);
     }
 }
