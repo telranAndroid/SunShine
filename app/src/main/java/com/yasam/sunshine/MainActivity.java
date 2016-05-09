@@ -2,12 +2,15 @@ package com.yasam.sunshine;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+    private ArrayAdapter<String> mForecastAdapter = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,5 +28,12 @@ public class MainActivity extends AppCompatActivity {
                 "Sun 29/6 - Sunny - 20/7"
         };
         List<String> weekForecast = new ArrayList<String>(Arrays.asList(data));
+
+        mForecastAdapter = new ArrayAdapter<String>(
+                this,                        // The current context
+                R.layout.list_item_forecast, // ID of List Item layout
+                R.id.txtVw_listItenForecast, // ID of the List Item element to populate
+                weekForecast                 // forecasts raw data
+        );
     }
 }
