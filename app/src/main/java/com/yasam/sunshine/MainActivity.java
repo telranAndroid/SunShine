@@ -340,6 +340,13 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
+            try {
+                if(forecastJsonStr != null)
+                    return getWeatherDataFromJson(forecastJsonStr, FORECAST_DAYS);
+            }catch (JSONException jex){
+                Log.e(LOG_TAG, "Error weather data parsing.", jex);
+            }
+
             return null;
         }
     }
