@@ -1,5 +1,6 @@
 package com.yasam.sunshine;
 
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -149,11 +150,40 @@ public class MainActivity extends AppCompatActivity {
             // Will contain the raw JSON response as a string.
             String forecastJsonStr = null;
 
+            final String URI_BASE_FORECAST_DAILY = "http://api.openweathermap.org/data/2.5/forecast/daily?";
+            //URI parameters names
+            final String PARAM_QUERY = "q";
+            final String PARAM_MODE = "mode";
+            final String PARAM_UNITS = "units";
+            final String PARAM_DAYS = "cnt";
+            final String PARAM_APPID = "appid";
+
+            String uriBase = URI_BASE_FORECAST_DAILY;
+
+            //URI parameters values
+            String uriVal_location = "94043,US";
+            String uriVal_mode = "json";
+            String uriVal_units = "metric";
+            String uriVal_days = String.valueOf(7);
+            String uriVal_appid = BuildConfig.API_ID_OPEN_WEATHER_MAP;
+
             try {
+
+                Uri uriOWM = Uri.parse(uriBase).buildUpon()
+                        .appendQueryParameter(PARAM_QUERY, uriVal_location)
+                        .appendQueryParameter(PARAM_MODE, uriVal_mode)
+                        .appendQueryParameter(PARAM_UNITS, uriVal_units)
+                        .appendQueryParameter(PARAM_DAYS, uriVal_days)
+                        .appendQueryParameter(PARAM_APPID, uriVal_appid)
+                        .build();
+
+                Log.d(LOG_TAG, "Built URI: " + uriOWM.toString());
+
                 // Construct the URL for the OpenWeatherMap query
                 // Possible parameters are avaiable at OWM's forecast API page, at
                 // http://openweathermap.org/API#forecast
-                URL url = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?q=94043&mode=json&units=metric&cnt=7");
+                //URL url = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?q=94043,US&mode=json&units=metric&cnt=7");
+                URL url = new URL(uriOWM.toString());
 
                 // Create the request to OpenWeatherMap, and open the connection
                 urlConnection = (HttpURLConnection) url.openConnection();
