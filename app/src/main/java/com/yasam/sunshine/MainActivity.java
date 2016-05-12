@@ -114,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
         switch (itemId){
             case R.id.action_refresh:
                 Log.d(LOG_TAG, "Refresh");
+                new FetchWeahterTask().execute();
                 return true;
         }
         return super.onOptionsItemSelected(item);
