@@ -11,6 +11,10 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -234,6 +238,31 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
             return null;
+        }
+    }
+
+
+    public static class WeatherDataParser{
+        /**
+         * Given a string of the form returned by the api call:
+         * http://api.openweathermap.org/data/2.5/forecast/daily?q=94043&mode=json&units=metric&cnt=7
+         * retrieve the maximum temperature for the day indicated by dayIndex
+         * (Note: 0-indexed, so 0 would refer to the first day).
+         */
+        public static double getMaxTemperatureForDay(String weatherJsonStr, int dayIndex)
+                throws JSONException {
+            double maxTemp = 0;
+
+            JSONObject jObj = new JSONObject(weatherJsonStr);
+
+            JSONArray days = jObj.getJSONArray("list");
+
+            JSONObject jObjDayIndx = days.getJSONObject(dayIndex);
+            JSONObject jObjTemps = jObjDayIndx.getJSONObject("temp");
+
+            maxTemp = jObjTemps.getDouble("max");
+
+            return maxTemp;
         }
     }
 }
