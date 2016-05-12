@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:appCompat="http://schemas.android.com/apk/res-auto" >
+    <item
+        android:id="@+id/action_refresh"
+        android:title="@string/title_refresh"
+        android:orderInCategory="100"
+        appCompat:showAsAction="never"/>
+</menu>
