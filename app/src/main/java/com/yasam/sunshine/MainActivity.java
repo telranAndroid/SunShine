@@ -115,13 +115,13 @@ public class MainActivity extends AppCompatActivity {
         switch (itemId){
             case R.id.action_refresh:
                 Log.d(LOG_TAG, "Refresh");
-                new FetchWeahterTask().execute();
+                new FetchWeahterTask().execute("rehovot,il");
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    public class FetchWeahterTask extends AsyncTask<Void, Void, Void>{
+    public class FetchWeahterTask extends AsyncTask<String, Void, Void>{
 
         private final String LOG_TAG = getClass().getSimpleName();
 
@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
          * @see #publishProgress
          */
         @Override
-        protected Void doInBackground(Void... params) {
+        protected Void doInBackground(String... params) {
             // These two need to be declared outside the try/catch
             // so that they can be closed in the finally block.
             HttpURLConnection urlConnection = null;
@@ -162,6 +162,8 @@ public class MainActivity extends AppCompatActivity {
 
             //URI parameters values
             String uriVal_location = "94043,US";
+            if(params!=null && params.length>0)
+                uriVal_location = params[0];
             String uriVal_mode = "json";
             String uriVal_units = "metric";
             String uriVal_days = String.valueOf(7);
