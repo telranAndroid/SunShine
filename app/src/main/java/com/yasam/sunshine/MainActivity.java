@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -66,7 +67,8 @@ public class MainActivity extends AppCompatActivity {
             lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                    String forecast = mForecastAdapter.getItem(position);
+                    Toast.makeText(getApplicationContext(), forecast, Toast.LENGTH_LONG).show();
                 }
             });
         }
