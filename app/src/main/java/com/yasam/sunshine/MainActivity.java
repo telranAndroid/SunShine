@@ -1,5 +1,6 @@
 package com.yasam.sunshine;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -13,7 +14,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -68,7 +68,10 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     String forecast = mForecastAdapter.getItem(position);
-                    Toast.makeText(getApplicationContext(), forecast, Toast.LENGTH_LONG).show();
+
+                    Intent detailItent = new Intent(getApplicationContext(), DetailActivity.class)
+                            .putExtra(Intent.EXTRA_TEXT, forecast);
+                    startActivity(detailItent);
                 }
             });
         }
