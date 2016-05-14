@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -59,9 +61,15 @@ public class MainActivity extends AppCompatActivity {
         // Get a reference to the ListView, and attach this adapter to it.
         ListView lv = (ListView) findViewById(R.id.lstVw_forecast);
 
-        if(lv != null)
+        if(lv != null) {
             lv.setAdapter(mForecastAdapter);
+            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                }
+            });
+        }
 
     }
 
