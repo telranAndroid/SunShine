@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         mForecastAdapter = new ArrayAdapter<String>(
                 this,                        // The current context
                 R.layout.list_item_forecast, // ID of List Item layout
-                R.id.txtVw_listItenForecast, // ID of the List Item element to populate
+                R.id.txtVw_listItemForecast, // ID of the List Item element to populate
                 weekForecast                 // forecasts raw data
         );
 
