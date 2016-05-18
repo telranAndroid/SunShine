@@ -4,4 +4,17 @@
     <string name="title_action_settings">Settings</string>
     <string name="title_activity_detail">Details</string>
     <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Location preference section of Settings -->
+    <!-- Key name for storing the location in SharedPreferences [CHAR LIMIT=NONE] -->
+    <string name="prefKey_location" translatable="false">Location</string>
+
+    <!-- Title for the location prefernce in Settings screen [CHAR LIMIT=NONE] -->
+    <string name="prefTitle_location">@string/prefKey_location</string>
+
+    <!-- Default value for location preference [CHAR LIMIT=NONE] -->
+    <string name="prefDefVal_location" translatable="false">Rehovot,Il</string>
+
 </resources>

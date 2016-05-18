@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <EditTextPreference
+        android:key="@string/prefKey_location"
+        android:title="@string/prefTitle_location"
+        android:defaultValue="@string/prefDefVal_location"
+        android:inputType="textCapWords"
+        android:singleLine="true"/>
+
+</PreferenceScreen>
