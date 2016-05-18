@@ -4,7 +4,13 @@
     xmlns:appCompat="http://schemas.android.com/apk/res-auto" >
     <item
         android:id="@+id/action_refresh"
-        android:title="@string/title_refresh"
+        android:title="@string/title_action_refresh"
         android:orderInCategory="100"
         appCompat:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="101"
+        android:title="@string/title_action_settings"
+        appCompat:showAsAction="never" />
 </menu>

@@ -130,14 +130,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
+        boolean res = false;
         int itemId = item.getItemId();
         switch (itemId){
             case R.id.action_refresh:
-                Log.d(LOG_TAG, "Refresh");
                 new FetchWeahterTask().execute("rehovot,il");
-                return true;
+                res = true;
+                break;
+            case R.id.action_settings:
+                res = SettingsActivity.launch(this);
+                break;
+            default:
+                res = super.onOptionsItemSelected(item);
+                break;
         }
-        return super.onOptionsItemSelected(item);
+        return res;
     }
 
     public class FetchWeahterTask extends AsyncTask<String, Void, String[]>{

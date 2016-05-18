@@ -1,5 +1,7 @@
 package com.yasam.sunshine;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -86,6 +88,17 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
             preference.setSummary(prefSummary);
 
             res = true;
+        }
+        return res;
+    }
+
+    public static boolean launch(Context context) {
+        boolean res = false;
+        try{
+            context.startActivity(new Intent(context, SettingsActivity.class));
+            res = true;
+        }catch (Exception ex){
+
         }
         return res;
     }
