@@ -23,11 +23,13 @@ public class SettingsActivity extends AppCompatPreferenceActivity
         setupActionBar();
 
         // Add 'general' preferences, defined in the XML file
-        // TODO: Add preferences from XML
+        addPreferencesFromResource(R.xml.pref_general);
 
         // For all preferences, attach an OnPreferenceChangeListener so the UI summary can be
         // updated when the preference changes.
         // TODO: Bind each preference
+        mPref_Location = findPreference(getString(R.string.prefKey_location));
+        bindPreferenceSummaryToValue(mPref_Location);
     }
 
     /**
