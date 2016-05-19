@@ -2,12 +2,14 @@ package com.yasam.sunshine;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
+import android.text.TextUtils;
 import android.view.MenuItem;
 
 import com.yasam.sunshine.infrastructure.AppCompatPreferenceActivity;
@@ -142,20 +144,40 @@ public class SettingsActivity extends AppCompatPreferenceActivity
     }
 
     /**
+     * Location for the forecast
      *
      * @param context
      * @return
      */
-    public static String getPrefKey_location(Context context) {
-        return context == null ? null : context.getString(R.string.prefKey_location);
+    public static String getLocation(Context context) {
+        String res = null;
+        if(context != null) {
+            SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+            res = pref.getString(
+                    context.getString(R.string.prefKey_location),
+                    context.getString(R.string.prefDefVal_location)
+            );
+        }
+        return res;
     }
 
     /**
+     * Temperature unit for the forecast
      *
      * @param context
      * @return
      */
-    public static String getPrefDefaultValue_location(Context context) {
-        return context == null ? null : context.getString(R.string.prefDefVal_location);
+    public static boolean isImperial(Context context) {
+        boolean res = false;
+        if(context!=null) {
+            SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+            String temp_unit = pref.getString(
+                    context.getString(R.string.prefKey_tempUnits),
+                    context.getString(R.string.prefDefVal_tempUnits)
+            );
+            if (TextUtils.equals(temp_unit, context.getString(R.string.prefVal_tempUnits_imperial)))
+                res = true;
+        }
+        return res;
     }
 }

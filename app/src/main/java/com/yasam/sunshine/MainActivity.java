@@ -2,12 +2,11 @@ package com.yasam.sunshine;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.Menu;
@@ -145,13 +144,12 @@ public class MainActivity extends AppCompatActivity {
     private boolean updateWeather(Context context) {
         boolean res=false;
         try {
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-            String location = prefs.getString(
-                    SettingsActivity.getPrefKey_location(context),
-                    SettingsActivity.getPrefDefaultValue_location(context));
+            String location = SettingsActivity.getLocation(this);
 
-            new FetchWeahterTask().execute(location);
-            res = true;
+            if(location != null && !TextUtils.isEmpty(location)) {
+                new FetchWeahterTask().execute(location);
+                res = true;
+            }
         }catch (Exception ex){
 
         }
@@ -176,13 +174,28 @@ public class MainActivity extends AppCompatActivity {
         /**
          * Prepare the weather high/lows for presentation.
          */
-        private String formatHighLows(double high, double low) {
+        private String formatHighLows(double high, double low, boolean isImperial) {
             // For presentation, assume the user doesn't care about tenths of a degree.
-            long roundedHigh = Math.round(high);
-            long roundedLow = Math.round(low);
+            long roundedHigh = getTemperature(high, isImperial);
+            long roundedLow = getTemperature(low, isImperial);
 
             String highLowStr = roundedHigh + " / " + roundedLow;
             return highLowStr;
+        }
+
+        /**
+         *
+         * @param tempMetric
+         * @param isImperial
+         * @return
+         */
+        private long getTemperature(double tempMetric, boolean isImperial) {
+            long res = Math.round(tempMetric);
+
+            if(isImperial)
+                res = Math.round((tempMetric * 1.8) + 32);
+
+            return res;
         }
 
         /**
@@ -224,6 +237,8 @@ public class MainActivity extends AppCompatActivity {
             dayTime = new Time();
 
             String[] resultStrs = new String[numDays];
+            boolean isImperial = SettingsActivity.isImperial(getApplicationContext());
+
             for(int i = 0; i < weatherArray.length(); i++) {
                 // For now, using the format "Day, description, hi/low"
                 String day;
@@ -251,7 +266,7 @@ public class MainActivity extends AppCompatActivity {
                 double high = temperatureObject.getDouble(OWM_MAX);
                 double low = temperatureObject.getDouble(OWM_MIN);
 
-                highAndLow = formatHighLows(high, low);
+                highAndLow = formatHighLows(high, low, isImperial);
                 resultStrs[i] = String.format("%s - %s - %s", day, description, highAndLow);
             }
 
