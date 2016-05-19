@@ -3,6 +3,7 @@ package com.yasam.sunshine;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -10,12 +11,15 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.yasam.sunshine.infrastructure.AppCompatPreferenceActivity;
 
 public class SettingsActivity extends AppCompatPreferenceActivity
         implements Preference.OnPreferenceChangeListener {
+
+    private static final String LOG_TAG = SettingsActivity.class.getSimpleName();
 
     private Preference mPref_Location = null;
     private Preference mPref_Units = null;
@@ -177,6 +181,32 @@ public class SettingsActivity extends AppCompatPreferenceActivity
             );
             if (TextUtils.equals(temp_unit, context.getString(R.string.prefVal_tempUnits_imperial)))
                 res = true;
+        }
+        return res;
+    }
+
+    /**
+     * Open map with preferred location
+     * @param context
+     * @return
+     */
+    public static boolean openPreferredLocationOnMap(Context context) {
+        boolean res = false;
+        String location = getLocation(context);
+
+        if(location != null && !TextUtils.isEmpty(location)){
+            Uri geoLocation = Uri.parse("geo:0,0?").buildUpon()
+                    .appendQueryParameter("q", location)
+                    .build();
+
+            Intent intentMap = new Intent(Intent.ACTION_VIEW)
+                    .setData(geoLocation);
+
+            if(intentMap.resolveActivity(context.getPackageManager()) != null)
+                context.startActivity(intentMap);
+            else
+                Log.d(LOG_TAG, String.format(
+                        "Couldn't view %s on the map, no receiving apps installed!", location));
         }
         return res;
     }

@@ -84,6 +84,9 @@ public class DetailActivity extends AppCompatActivity {
             case R.id.action_settings:
                 res = SettingsActivity.launch(this);
                 break;
+            case R.id.action_map:
+                res = SettingsActivity.openPreferredLocationOnMap(this);
+                break;
             default:
                 res = super.onOptionsItemSelected(item);
                 break;
