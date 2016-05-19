@@ -4,6 +4,12 @@
     xmlns:appCompat="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/action_share"
+        android:title="@string/title_action_share"
+        appCompat:showAsAction="always"
+        appCompat:actionProviderClass="android.support.v7.widget.SharedActionProvider"/>
+
+    <item
         android:id="@+id/action_map"
         android:title="@string/title_action_map"
         android:orderInCategory="100"
