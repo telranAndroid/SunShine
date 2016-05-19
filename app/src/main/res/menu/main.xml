@@ -9,6 +9,12 @@
         appCompat:showAsAction="never"/>
 
     <item
+        android:id="@+id/action_map"
+        android:title="@string/title_action_map"
+        android:orderInCategory="100"
+        appCompat:showAsAction="never"/>
+
+    <item
         android:id="@+id/action_settings"
         android:orderInCategory="101"
         android:title="@string/title_action_settings"
