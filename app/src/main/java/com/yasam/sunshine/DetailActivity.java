@@ -2,13 +2,20 @@ package com.yasam.sunshine;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ShareActionProvider;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
 
 public class DetailActivity extends AppCompatActivity {
+    private static final String LOG_TAG = DetailActivity.class.getSimpleName();
+
+    private static final String SHARE_HASHTAG_FORECAST = " #SunshineApp";
+    private String mForecastStr = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,12 +24,12 @@ public class DetailActivity extends AppCompatActivity {
 
         Intent callerIntent = getIntent();
         if(callerIntent!=null && callerIntent.hasExtra(Intent.EXTRA_TEXT)){
-            String forecast = callerIntent.getStringExtra(Intent.EXTRA_TEXT);
+            mForecastStr = callerIntent.getStringExtra(Intent.EXTRA_TEXT);
 
             TextView txtVw_detail = (TextView) findViewById(R.id.txtVw_detail);
 
             if(txtVw_detail!=null)
-                txtVw_detail.setText(forecast);
+                txtVw_detail.setText(mForecastStr);
         }
     }
 
@@ -56,6 +63,22 @@ public class DetailActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.detail, menu);
+
+        // Retrieve the share menu item
+        MenuItem menuItem = menu.findItem(R.id.action_share);
+
+        // Get the provider and hold onto it to set/change the share intent.
+        ShareActionProvider shareActionProvider =
+                (ShareActionProvider) MenuItemCompat.getActionProvider(menuItem);
+
+        // Attach an intent to this ShareActionProvider.  You can update this at any time,
+        // like when the user selects a new piece of data they might like to share.
+        if (shareActionProvider != null ) {
+            shareActionProvider.setShareIntent(createShareForecastIntent());
+        } else {
+            Log.d(LOG_TAG, "Share Action Provider is null?");
+        }
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -92,5 +115,14 @@ public class DetailActivity extends AppCompatActivity {
                 break;
         }
         return res;
+    }
+
+    private Intent createShareForecastIntent() {
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_TEXT,
+                mForecastStr + SHARE_HASHTAG_FORECAST);
+        return shareIntent;
     }
 }
