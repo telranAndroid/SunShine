@@ -9,4 +9,11 @@
         android:inputType="textCapWords"
         android:singleLine="true"/>
 
+    <ListPreference
+        android:key="@string/prefKey_tempUnits"
+        android:title="@string/prefTitle_tempUnits"
+        android:defaultValue="@string/prefDefVal_tempUnits"
+        android:entryValues="@array/prefValues_tempUnits"
+        android:entries="@array/prefTitles_tempUnits"/>
+
 </PreferenceScreen>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Arrays related to Settings -->
+
+    <!-- Temperature Units preference section of Settings -->
+    <!-- Temperature Units preference untranslatable values collection -->
+    <string-array name="prefValues_tempUnits">
+        <item>@string/prefVal_tempUnits_metric</item>
+        <item>@string/prefVal_tempUnits_imperial</item>
+    </string-array>
+
+    <!-- Temperature Units preference titles collection -->
+    <string-array name="prefTitles_tempUnits">
+        <item>@string/prefTitle_tempUnits_metric</item>
+        <item>@string/prefTitle_tempUnits_imperial</item>
+    </string-array>
+</resources>

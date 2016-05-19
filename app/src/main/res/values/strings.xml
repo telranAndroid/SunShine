@@ -11,10 +11,27 @@
     <!-- Key name for storing the location in SharedPreferences [CHAR LIMIT=NONE] -->
     <string name="prefKey_location" translatable="false">Location</string>
 
-    <!-- Title for the location prefernce in Settings screen [CHAR LIMIT=NONE] -->
+    <!-- Title for the location preference in Settings screen [CHAR LIMIT=NONE] -->
     <string name="prefTitle_location">@string/prefKey_location</string>
 
     <!-- Default value for location preference [CHAR LIMIT=NONE] -->
     <string name="prefDefVal_location" translatable="false">Rehovot,Il</string>
 
+    <!-- Temperature Units preference section of Settings -->
+    <!-- Key name for storing the Temperature Units in SharedPreferences [CHAR LIMIT=NONE] -->
+    <string name="prefKey_tempUnits" translatable="false">temp_units</string>
+
+    <!-- Title for the Temperature Units preference in Settings screen [CHAR LIMIT=NONE] -->
+    <string name="prefTitle_tempUnits">Temperature Units</string>
+
+    <!-- Temperature Units preference untranslatable values  -->
+    <string name="prefVal_tempUnits_metric" translatable="false">Metric</string>
+    <string name="prefVal_tempUnits_imperial" translatable="false">Imperial</string>
+
+    <!-- Default value for Temperature Units preference [CHAR LIMIT=NONE] -->
+    <string name="prefDefVal_tempUnits" translatable="false">@string/prefVal_tempUnits_metric</string>
+
+    <!-- Temperature Units preference titles -->
+    <string name="prefTitle_tempUnits_metric">@string/prefVal_tempUnits_metric</string>
+    <string name="prefTitle_tempUnits_imperial">@string/prefVal_tempUnits_imperial</string>
 </resources>
