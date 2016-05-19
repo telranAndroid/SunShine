@@ -7,7 +7,7 @@
         android:id="@+id/action_share"
         android:title="@string/title_action_share"
         appCompat:showAsAction="always"
-        appCompat:actionProviderClass="android.support.v7.widget.SharedActionProvider"/>
+        appCompat:actionProviderClass="android.support.v7.widget.ShareActionProvider"/>
 
     <item
         android:id="@+id/action_map"
