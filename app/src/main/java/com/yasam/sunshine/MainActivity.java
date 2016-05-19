@@ -1,5 +1,6 @@
 package com.yasam.sunshine;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -29,8 +30,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,23 +41,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Create some dummy data for the ListView.  Here's a sample weekly forecast
-        String[] data = {
-                "Mon 23/6 - Sunny - 31/17",
-                "Tue 24/6 - Foggy - 21/8",
-                "Wed 25/6 - Cloudy - 22/17",
-                "Thurs 26/6 - Rainy - 18/11",
-                "Fri 27/6 - Foggy - 21/10",
-                "Sat 28/6 - TRAPPED IN WEATHERSTATION - 23/18",
-                "Sun 29/6 - Sunny - 20/7"
-        };
-        List<String> weekForecast = new ArrayList<String>(Arrays.asList(data));
-
         mForecastAdapter = new ArrayAdapter<String>(
                 this,                        // The current context
                 R.layout.list_item_forecast, // ID of List Item layout
                 R.id.txtVw_listItemForecast, // ID of the List Item element to populate
-                weekForecast                 // forecasts raw data
+                new ArrayList<String>()      // forecasts raw data
         );
 
         // Get a reference to the ListView, and attach this adapter to it.
@@ -78,6 +65,13 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        updateWeather(this);
     }
 
     /**
@@ -136,13 +130,7 @@ public class MainActivity extends AppCompatActivity {
         int itemId = item.getItemId();
         switch (itemId){
             case R.id.action_refresh:
-                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-                String location = prefs.getString(
-                        SettingsActivity.getPrefKey_location(this),
-                        SettingsActivity.getPrefDefaultValue_location(this));
-
-                new FetchWeahterTask().execute(location);
-                res = true;
+                res = updateWeather(this);
                 break;
             case R.id.action_settings:
                 res = SettingsActivity.launch(this);
@@ -150,6 +138,22 @@ public class MainActivity extends AppCompatActivity {
             default:
                 res = super.onOptionsItemSelected(item);
                 break;
+        }
+        return res;
+    }
+
+    private boolean updateWeather(Context context) {
+        boolean res=false;
+        try {
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            String location = prefs.getString(
+                    SettingsActivity.getPrefKey_location(context),
+                    SettingsActivity.getPrefDefaultValue_location(context));
+
+            new FetchWeahterTask().execute(location);
+            res = true;
+        }catch (Exception ex){
+
         }
         return res;
     }
