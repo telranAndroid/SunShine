@@ -4,6 +4,7 @@
     <string name="title_action_settings">Settings</string>
     <string name="title_activity_detail">Details</string>
     <string name="title_activity_settings">Settings</string>
+    <string name="title_action_map">Map Location</string>
 
     <!-- Strings related to Settings -->
 
@@ -34,4 +35,5 @@
     <!-- Temperature Units preference titles -->
     <string name="prefTitle_tempUnits_metric">@string/prefVal_tempUnits_metric</string>
     <string name="prefTitle_tempUnits_imperial">@string/prefVal_tempUnits_imperial</string>
+
 </resources>
