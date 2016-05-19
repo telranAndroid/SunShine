@@ -1,9 +1,11 @@
 package com.yasam.sunshine;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.Time;
 import android.util.Log;
@@ -134,7 +136,12 @@ public class MainActivity extends AppCompatActivity {
         int itemId = item.getItemId();
         switch (itemId){
             case R.id.action_refresh:
-                new FetchWeahterTask().execute("rehovot,il");
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+                String location = prefs.getString(
+                        SettingsActivity.getPrefKey_location(this),
+                        SettingsActivity.getPrefDefaultValue_location(this));
+
+                new FetchWeahterTask().execute(location);
                 res = true;
                 break;
             case R.id.action_settings:

@@ -123,7 +123,11 @@ public class SettingsActivity extends AppCompatPreferenceActivity
         return res;
     }
 
-
+    /**
+     * Launch the SettingsActivity
+     * @param context
+     * @return true if activity is started.
+     */
     public static boolean launch(Context context) {
         boolean res = false;
         try{
@@ -133,5 +137,23 @@ public class SettingsActivity extends AppCompatPreferenceActivity
 
         }
         return res;
+    }
+
+    /**
+     *
+     * @param context
+     * @return
+     */
+    public static String getPrefKey_location(Context context) {
+        return context == null ? null : context.getString(R.string.prefKey_location);
+    }
+
+    /**
+     *
+     * @param context
+     * @return
+     */
+    public static String getPrefDefaultValue_location(Context context) {
+        return context == null ? null : context.getString(R.string.prefDefVal_location);
     }
 }
